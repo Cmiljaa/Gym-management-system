@@ -51,6 +51,8 @@ $run -> bind_param("si", $filename, $member_id);
 
 $run -> execute();
 
+$conn -> close();
+
 header("Location: admin_dashboard.php");
 exit();
 

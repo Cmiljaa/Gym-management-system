@@ -15,8 +15,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
     $run -> execute();
 
-
     $results = $run -> get_result();
+
+    $conn -> close();
 
     if($results -> num_rows > 0){
 
@@ -24,17 +25,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
         if(password_verify($password, $admin['password'])){
             $_SESSION['admin_id'] = $admin['admin_id'];
+            $conn -> close();
             header("Location: admin_dashboard.php");
             exit();
         }
         else{
             $_SESSION['error'] = "Wrong password!";
+            $conn -> close();
             header("Location: index.php");
             exit();
         }
     }
     else{
         $_SESSION['error'] = "Wrong username!";
+        $conn -> close();
         header("Location: index.php");
         exit();
     }
