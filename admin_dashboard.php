@@ -17,8 +17,6 @@ $run = $conn -> query($sql);
 
 $training_plans = $run -> fetch_all(MYSQLI_ASSOC);
 
-$conn -> close();
-
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +38,68 @@ $conn -> close();
 <?php endif; ?>
 
 <div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h2>Members List</h2>
+            <table class="table table-striped" style="text-align: center;">
+                <thead>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone number</th>
+                    <th>Photo path</th>
+                    <th>Trainer</th>
+                    <th>Training plan</th>
+                    <th>Access card</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                </thead>
+                <?php
+
+                $sql = "SELECT members.*, training_plans.name AS training_plan_name, 
+                CONCAT(trainers.first_name, ' ', trainers.last_name) AS trainer_name
+                FROM members
+                LEFT JOIN training_plans ON training_plans.plan_id = members.member_id
+                LEFT JOIN trainers ON trainers.trainer_id = members.trainer_id";
+
+                $run = $conn -> query($sql);
+
+                $memberList = $run -> fetch_all(MYSQLI_ASSOC);
+
+                ?>
+                <tbody>
+                    <?php foreach($memberList as $member):?>
+
+                    <tr>
+                        <td><?=$member['first_name'] ?></td>
+                        <td><?=$member['last_name'] ?></td>
+                        <td><?=$member['email'] ?></td>
+                        <td><?=$member['phone_number'] ?></td>
+                        <td><img style="width: 60px; height: 60px;" src="<?=$member['photo_path'] ?>"></td>
+                        <td><?= ($member['trainer_name'] == '')? "Not assigned" : $member['trainer_name'] ?></td>
+                        <td><?= ($member['training_plan_name'] == '') ? "Not assigned" : $member['training_plan_name'] ?></td>
+                        <td><a target="_blank" href="<?=$member['access_card_pdf_path'] ?>">Access card</a></td>
+                        <td><?php
+                        $created_at = strtotime($member['created_at']);
+                        $new_date = date("M d, Y", $created_at);
+                        echo $new_date;
+                        ?></td>
+                        <td>
+                            <form action="delete_member.php">
+                                <button>DELETE</button>
+                            </form>
+                        </td>
+                    </tr>
+                    
+                    <?php endforeach; ?>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
     <div class="row mb-5">
         <div class="col-md-6">
             <h2>Register member</h2>
@@ -66,6 +126,8 @@ $conn -> close();
         </div>
     </div>
 </div>
+
+<?php $conn -> close(); ?>
 
 <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
