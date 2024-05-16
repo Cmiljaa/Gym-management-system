@@ -87,8 +87,9 @@ $training_plans = $run -> fetch_all(MYSQLI_ASSOC);
                         echo $new_date;
                         ?></td>
                         <td>
-                            <form action="delete_member.php">
-                                <button>DELETE</button>
+                            <form action="delete_member.php" method="POST">
+                                <input type="hidden" name="member_id" value="<?= $member['member_id']?>">
+                                <input type="submit" value="DELETE">
                             </form>
                         </td>
                     </tr>
