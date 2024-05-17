@@ -21,6 +21,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $conn -> close();
         exit();
     }else{
-        $_SESSION['success_message'] = 'Error!';
+        $_SESSION['success_message'] = "Error!";
+        header("Location: admin_dashboard.php");
+        exit();
     }
 }
