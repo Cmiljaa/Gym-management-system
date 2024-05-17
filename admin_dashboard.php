@@ -17,7 +17,11 @@ $run = $conn -> query($sql);
 
 $training_plans = $run -> fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT * FROM trainers";
 
+$run = $conn -> query($sql);
+
+$trainers = $run -> fetch_all(MYSQLI_ASSOC);
 
 ?>
 
@@ -139,7 +143,24 @@ $training_plans = $run -> fetch_all(MYSQLI_ASSOC);
             </form>
         </div>
     </div>
-    
+    <div class="col-md-6">
+        <h2>Assign Trainer to Member</h2>
+        Select member
+        <form action="assign_trainer.php" method="POST">
+            <select name="member_select" class="form-control">
+                <?php foreach($memberList as $member): ?>
+                    <option value="<?= $member['member_id']?>"><?= $member['first_name'] . " " . $member['last_name']?></option>
+                <?php endforeach; ?>
+            </select><br>
+            Select trainer
+            <select name="trainer_select" class="form-control">
+                <?php foreach($trainers as $trainer): ?>
+                    <option value="<?= $trainer['trainer_id']?>"><?= $trainer['first_name'] . " " . $trainer['last_name']?></option>
+                <?php endforeach; ?>
+            </select><br>
+            <input class="btn btn-primary" type="submit" value="Assign trainer">
+        </form>
+    </div>
 </div>
 
 <?php $conn -> close(); ?>
