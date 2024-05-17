@@ -17,8 +17,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
     $results = $run -> get_result();
 
-    $conn -> close();
-
     if($results -> num_rows > 0){
 
         $admin = $results -> fetch_assoc();

@@ -19,5 +19,5 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $conn -> close();
 
     header("Location: admin_dashboard.php");
-    exit();
+    exit(); 
 }
