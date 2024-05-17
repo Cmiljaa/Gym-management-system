@@ -46,7 +46,7 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
 <div class="container">
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-top: 50px;">
 
             <h2>Members List</h2>
             <table class="table table-striped" style="text-align: center;">
@@ -106,9 +106,11 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
             </table>
 
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-top: 50px;">
 
             <table class="table table-striped" style="text-align: center;">
+
+            <h2>Trainers List</h2>
 
                 <thead>
                     <th>First Name</th>
@@ -138,7 +140,7 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
 
         </div>
     </div>
-    <div class="row mb-5">
+    <div class="row mb-5" style="margin-top: 50px;">
         <div class="col-md-6">
             <h2>Register member</h2>
             <form action="register_member.php" method="POST" enctype="multipart/form-data">
@@ -174,23 +176,30 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
             </form>
         </div>
     </div>
-    <div class="col-md-6">
-        <h2>Assign Trainer to Member</h2>
-        Select member
-        <form action="assign_trainer.php" method="POST">
-            <select name="member_select" class="form-control">
-                <?php foreach($memberList as $member): ?>
-                    <option value="<?= $member['member_id']?>"><?= $member['first_name'] . " " . $member['last_name']?></option>
-                <?php endforeach; ?>
-            </select><br>
-            Select trainer
-            <select name="trainer_select" class="form-control">
-                <?php foreach($trainerList as $trainer): ?>
-                    <option value="<?= $trainer['trainer_id']?>"><?= $trainer['first_name'] . " " . $trainer['last_name']?></option>
-                <?php endforeach; ?>
-            </select><br>
-            <input class="btn btn-primary" type="submit" value="Assign trainer">
-        </form>
+    <div class="row">
+        <div class="col-md-6" style="margin-bottom: 50px;">
+            <h2>Assign Trainer to Member</h2>
+            Select member
+            <form action="assign_trainer.php" method="POST">
+                <select name="member_select" class="form-control">
+                    <?php foreach($memberList as $member): ?>
+                        <option value="<?= $member['member_id']?>"><?= $member['first_name'] . " " . $member['last_name']?></option>
+                    <?php endforeach; ?>
+                </select><br>
+                Select trainer
+                <select name="trainer_select" class="form-control">
+                    <?php foreach($trainerList as $trainer): ?>
+                        <option value="<?= $trainer['trainer_id']?>"><?= $trainer['first_name'] . " " . $trainer['last_name']?></option>
+                    <?php endforeach; ?>
+                </select><br>
+                <input class="btn btn-primary" type="submit" value="Assign trainer">
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form action="sign_out.php" method="POST" style="text-align: center;">
+                <input type="submit" class="btn btn-danger" value="Sign out">
+            </form>
+        </div>
     </div>
 </div>
 
