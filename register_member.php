@@ -11,6 +11,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     $phoneNumber = $_POST['phone_number'];
     $trainingPlanId = $_POST['training_plan_id'];
     $photoPath = $_POST['photo_path'];
+    if($photoPath == '') $photoPath = 'member_photos/default.jpg';
     $trainerId = 0;
     $accessCardPdf = "";
 

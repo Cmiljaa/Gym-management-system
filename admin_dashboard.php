@@ -21,7 +21,7 @@ $sql = "SELECT * FROM trainers";
 
 $run = $conn -> query($sql);
 
-$trainers = $run -> fetch_all(MYSQLI_ASSOC);
+$trainerList = $run -> fetch_all(MYSQLI_ASSOC);
 
 ?>
 
@@ -75,7 +75,7 @@ $trainers = $run -> fetch_all(MYSQLI_ASSOC);
                 $memberList = $run -> fetch_all(MYSQLI_ASSOC);
 
                 ?>
-                <tbody>
+                <tbody style=" vertical-align: middle;">
                     <?php foreach($memberList as $member):?>
 
                     <tr>
@@ -100,6 +100,37 @@ $trainers = $run -> fetch_all(MYSQLI_ASSOC);
                         </td>
                     </tr>
                     
+                    <?php endforeach; ?>
+                </tbody>
+
+            </table>
+
+        </div>
+        <div class="col-md-12">
+
+            <table class="table table-striped" style="text-align: center;">
+
+                <thead>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone number</th>
+                    <th>Created at</th>
+                </thead>
+
+                <tbody style=" vertical-align: middle;">
+                    <?php foreach($trainerList as $trainer): ?>
+                    <tr>
+                        <td><?= $trainer['first_name']; ?></td>
+                        <td><?= $trainer['last_name']; ?></td>
+                        <td><?= $trainer['email']; ?></td>
+                        <td><?= $trainer['phone_number']; ?></td>
+                        <td><?php
+                        $created_at = strtotime($trainer['created_at']);
+                        $new_date = date("M d, Y", $created_at);
+                        echo $new_date;
+                        ?></td>
+                    </tr>
                     <?php endforeach; ?>
                 </tbody>
 
@@ -154,7 +185,7 @@ $trainers = $run -> fetch_all(MYSQLI_ASSOC);
             </select><br>
             Select trainer
             <select name="trainer_select" class="form-control">
-                <?php foreach($trainers as $trainer): ?>
+                <?php foreach($trainerList as $trainer): ?>
                     <option value="<?= $trainer['trainer_id']?>"><?= $trainer['first_name'] . " " . $trainer['last_name']?></option>
                 <?php endforeach; ?>
             </select><br>
