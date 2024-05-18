@@ -47,7 +47,7 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
 
     <div class="row">
         <div class="col-md-12" style="margin-top: 50px;">
-
+        <a href="export.php?what=members" class="btn btn-success btn-sm" style="margin-bottom: 20px;">Export</a>
             <h2>Members List</h2>
             <table class="table table-striped" style="text-align: center;">
                 <thead>
@@ -110,6 +110,8 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
 
             <table class="table table-striped" style="text-align: center;">
 
+            <a href="export.php?what=trainers" class="btn btn-success btn-sm" style="margin-bottom: 20px;">Export</a>
+
             <h2>Trainers List</h2>
 
                 <thead>
@@ -142,6 +144,8 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
 
         <div class="col-md-12" style="margin-top: 50px;">
             <table class="table table-striped" style="text-align: center;">
+
+            <a href="export.php?what=plans" class="btn btn-success btn-sm" style="margin-bottom: 20px;">Export</a>
 
                 <h2>Training plans</h2>
                     
