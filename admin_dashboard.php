@@ -15,7 +15,7 @@ $sql = "SELECT * FROM training_plans";
 
 $run = $conn -> query($sql);
 
-$training_plans = $run -> fetch_all(MYSQLI_ASSOC);
+$trainingPlans = $run -> fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT * FROM trainers";
 
@@ -95,7 +95,7 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
                         <td>
                             <form action="delete_member.php" method="POST">
                                 <input type="hidden" name="member_id" value="<?= $member['member_id']?>">
-                                <input type="submit" value="DELETE">
+                                <input type="submit" value="DELETE" class="btn btn-primary">
                             </form>
                         </td>
                     </tr>
@@ -139,6 +139,35 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
             </table>
 
         </div>
+
+        <div class="col-md-12" style="margin-top: 50px;">
+            <table class="table table-striped" style="text-align: center;">
+
+                <h2>Training plans</h2>
+                    
+                <thead>
+                    <th>Name</th>
+                    <th>Sessions</th>
+                    <th>Price</th>
+                    <th>Created at</th>
+                </thead>
+
+                <tbody style=" vertical-align: middle;">
+                    <?php foreach($trainingPlans as $trainingPlan): ?>
+                    <tr>
+                        <td><?= $trainingPlan['name']; ?></td>
+                        <td><?= $trainingPlan['sessions']; ?></td>
+                        <td><?= $trainingPlan['price'] . "$"; ?></td>
+                        <td><?php
+                        $created_at = strtotime($trainingPlan['created_at']);
+                        $new_date = date("M d, Y", $created_at);
+                        echo $new_date;
+                        ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="row mb-5" style="margin-top: 50px;">
         <div class="col-md-6">
@@ -151,7 +180,7 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
                 Training plan:
                 <select class="form-control" name="training_plan_id">
                     <option value="" disabled selected>Training plans</option>
-                    <?php foreach($training_plans as $plan): ?>
+                    <?php foreach($trainingPlans as $plan): ?>
                         <option value="<?= $plan['plan_id'] ?>">
                         <?= $plan['name'] ?>
                         </option>
@@ -178,7 +207,7 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
     </div>
     <div class="row">
         <div class="col-md-6" style="margin-bottom: 50px;">
-            <h2>Assign Trainer to Member</h2>
+            <h2>Assign/Change Trainer to Member</h2>
             Select member
             <form action="assign_trainer.php" method="POST">
                 <select name="member_select" class="form-control">
