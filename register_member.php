@@ -24,7 +24,7 @@ $run -> bind_param("sssssiis", $firstName, $lastName, $email, $phoneNumber, $pho
 
 $run -> execute();
 
-$_SESSION['success_message'] = "Member successfully added!";
+$_SESSION['success_message'] = "Successfully added member!";
 
 $member_id = $conn->insert_id;
 

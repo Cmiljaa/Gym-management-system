@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $run -> bind_param("ssss", $firstName, $lastName, $email, $phoneNumber);
 
     if($run -> execute()){
-        $_SESSION['success_message'] = 'Trainer successfully added!';
+        $_SESSION['success_message'] = 'Successfully added trainer!';
         header("Location: admin_dashboard.php");
         $conn -> close();
         exit();

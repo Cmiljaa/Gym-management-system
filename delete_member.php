@@ -10,7 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $run -> bind_param("i", $_POST['member_id']);
 
     if($run -> execute()){
-        $_SESSION['success_message'] = "Member has been successfully deleted!";
+        $_SESSION['success_message'] = "Successfully deleted member!";
     }
     else{
         $_SESSION['success_message'] = "Error!";

@@ -176,6 +176,12 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
                         $new_date = date("M d, Y", $created_at);
                         echo $new_date;
                         ?></td>
+                        <td>
+                            <form action="delete_training_plan.php" method="POST">
+                                <input type="hidden" name="plan_id" value="<?= $trainingPlan['plan_id']?>">
+                                <input type="submit" value="DELETE" class="btn btn-primary">
+                            </form>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

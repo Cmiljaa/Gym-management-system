@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if($run -> execute()){
 
-        $_SESSION['success_message'] = "Trainer is assigned successfully!";
+        $_SESSION['success_message'] = "Successfully assigned trainer!";
         $conn -> close();
         header("Location: admin_dashboard.php");
         exit();
