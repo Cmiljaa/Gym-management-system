@@ -54,11 +54,11 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
-                    <th>Phone number</th>
-                    <th>Photo path</th>
+                    <th>Phone Number</th>
+                    <th>Photo</th>
                     <th>Trainer</th>
-                    <th>Training plan</th>
-                    <th>Access card</th>
+                    <th>Training Plan</th>
+                    <th>Access Card</th>
                     <th>Created At</th>
                     <th>Action</th>
                 </thead>
@@ -99,10 +99,13 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
                             </form>
                         </td>
                     </tr>
-                    
                     <?php endforeach; ?>
-                </tbody>
 
+                    <?php if(count($memberList) == 0): ?>
+                        <tr><td colspan='10'>No members found</td></tr>
+                    <?php endif; ?>
+
+                </tbody>
             </table>
 
         </div>
@@ -118,7 +121,7 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
-                    <th>Phone number</th>
+                    <th>Phone Number</th>
                     <th>Created at</th>
                 </thead>
 
@@ -229,6 +232,15 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
             </form>
         </div>
         <div class="col-md-6">
+            <h2>Add training plan</h2>
+            <form action="add_plan.php" method="POST">
+                Name: <input class="form-control" type="text" name="plan_name"><br>
+                Sessions: <input class="form-control" type="number" name="sessions" min="1"><br>
+                Price in dollars: <input class="form-control" type="number" name="price" min="1"><br>
+                <input class="btn btn-primary" type="submit" value="Add plan">
+            </form>
+        </div>
+        <div class="col-md-6" style="margin-bottom: 30px;">
             <form action="sign_out.php" method="POST" style="text-align: center;">
                 <input type="submit" class="btn btn-danger" value="Sign out">
             </form>
