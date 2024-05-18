@@ -11,7 +11,7 @@ if(!isset($_SESSION['admin_id'])){
 
 <?php 
 
-$sql = "SELECT * FROM training_plans";
+$sql = "SELECT * FROM training_plans ORDER BY sessions";
 
 $run = $conn -> query($sql);
 
@@ -67,7 +67,7 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
                 $sql = "SELECT members.*, training_plans.name AS training_plan_name, 
                 CONCAT(trainers.first_name, ' ', trainers.last_name) AS trainer_name
                 FROM members
-                LEFT JOIN training_plans ON training_plans.plan_id = members.member_id
+                LEFT JOIN training_plans ON training_plans.plan_id = members.training_plan_id
                 LEFT JOIN trainers ON trainers.trainer_id = members.trainer_id";
 
                 $run = $conn -> query($sql);
@@ -83,7 +83,7 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
                         <td><?=$member['last_name'] ?></td>
                         <td><?=$member['email'] ?></td>
                         <td><?=$member['phone_number'] ?></td>
-                        <td><img style="width: 60px; height: 60px;" src="<?=$member['photo_path'] ?>"></td>
+                        <td><img style="width: 120px; height: 100px;" src="<?=$member['photo_path'] ?>"></td>
                         <td><?= ($member['trainer_name'] == '')? "Not assigned" : $member['trainer_name'] ?></td>
                         <td><?= ($member['training_plan_name'] == '') ? "Not assigned" : $member['training_plan_name'] ?></td>
                         <td><a target="_blank" href="<?=$member['access_card_pdf_path'] ?>">Access card</a></td>
@@ -137,6 +137,12 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
                         $new_date = date("M d, Y", $created_at);
                         echo $new_date;
                         ?></td>
+                        <td>
+                            <form action="delete_trainer.php" method="POST">
+                                <input type="hidden" name="trainer_id" value="<?= $trainer['trainer_id']?>">
+                                <input type="submit" value="DELETE" class="btn btn-primary">
+                            </form>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
