@@ -76,33 +76,37 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
 
                 ?>
                 <tbody style=" vertical-align: middle;">
-                    <?php foreach($memberList as $member):?>
-
-                    <tr>
-                        <td><?=$member['first_name'] ?></td>
-                        <td><?=$member['last_name'] ?></td>
-                        <td><?=$member['email'] ?></td>
-                        <td><?=$member['phone_number'] ?></td>
-                        <td><img style="width: 120px; height: 100px;" src="<?=$member['photo_path'] ?>"></td>
-                        <td><?= ($member['trainer_name'] == '')? "Not assigned" : $member['trainer_name'] ?></td>
-                        <td><?= ($member['training_plan_name'] == '') ? "Not assigned" : $member['training_plan_name'] ?></td>
-                        <td><a target="_blank" href="<?=$member['access_card_pdf_path'] ?>">Access card</a></td>
-                        <td><?php
-                        $created_at = strtotime($member['created_at']);
-                        $new_date = date("M d, Y", $created_at);
-                        echo $new_date;
-                        ?></td>
-                        <td>
-                            <form action="delete_member.php" method="POST">
-                                <input type="hidden" name="member_id" value="<?= $member['member_id']?>">
-                                <input type="submit" value="DELETE" class="btn btn-primary">
-                            </form>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-
                     <?php if(count($memberList) == 0): ?>
-                        <tr><td colspan='10'>No members found</td></tr>
+                        <tr>
+                            <td colspan="10">No items found</td>
+                        </tr>
+                    <?php else: ?>
+                
+                        <?php foreach($memberList as $member):?> 
+
+                        <tr>
+                            <td><?=$member['first_name'] ?></td>
+                            <td><?=$member['last_name'] ?></td>
+                            <td><?=$member['email'] ?></td>
+                            <td><?=$member['phone_number'] ?></td>
+                            <td><img style="width: 120px; height: 100px;" src="<?=$member['photo_path'] ?>"></td>
+                            <td><?= ($member['trainer_name'] == '')? "Not assigned" : $member['trainer_name'] ?></td>
+                            <td><?= ($member['training_plan_name'] == '') ? "Not assigned" : $member['training_plan_name'] ?></td>
+                            <td><a target="_blank" href="<?=$member['access_card_pdf_path'] ?>">Access card</a></td>
+                            <td><?php
+                            $created_at = strtotime($member['created_at']);
+                            $new_date = date("M d, Y", $created_at);
+                            echo $new_date;
+                            ?></td>
+                            <td>
+                                <form action="delete_member.php" method="POST">
+                                    <input type="hidden" name="member_id" value="<?= $member['member_id']?>">
+                                    <input type="submit" value="DELETE" class="btn btn-primary">
+                                </form>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+
                     <?php endif; ?>
 
                 </tbody>
@@ -126,27 +130,32 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
                 </thead>
 
                 <tbody style=" vertical-align: middle;">
-                    <?php foreach($trainerList as $trainer): ?>
-                    <tr>
-                        <td><?= $trainer['first_name']; ?></td>
-                        <td><?= $trainer['last_name']; ?></td>
-                        <td><?= $trainer['email']; ?></td>
-                        <td><?= $trainer['phone_number']; ?></td>
-                        <td><?php
-                        $created_at = strtotime($trainer['created_at']);
-                        $new_date = date("M d, Y", $created_at);
-                        echo $new_date;
-                        ?></td>
-                        <td>
-                            <form action="delete_trainer.php" method="POST">
-                                <input type="hidden" name="trainer_id" value="<?= $trainer['trainer_id']?>">
-                                <input type="submit" value="DELETE" class="btn btn-primary">
-                            </form>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                    <?php if(count($trainerList) == 0): ?>
+                        <tr>
+                            <td colspan="10">No items found</td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach($trainerList as $trainer): ?>
+                        <tr>
+                            <td><?= $trainer['first_name']; ?></td>
+                            <td><?= $trainer['last_name']; ?></td>
+                            <td><?= $trainer['email']; ?></td>
+                            <td><?= $trainer['phone_number']; ?></td>
+                            <td><?php
+                            $created_at = strtotime($trainer['created_at']);
+                            $new_date = date("M d, Y", $created_at);
+                            echo $new_date;
+                            ?></td>
+                            <td>
+                                <form action="delete_trainer.php" method="POST">
+                                    <input type="hidden" name="trainer_id" value="<?= $trainer['trainer_id']?>">
+                                    <input type="submit" value="DELETE" class="btn btn-primary">
+                                </form>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
-
             </table>
 
         </div>
@@ -166,24 +175,30 @@ $trainerList = $run -> fetch_all(MYSQLI_ASSOC);
                 </thead>
 
                 <tbody style=" vertical-align: middle;">
-                    <?php foreach($trainingPlans as $trainingPlan): ?>
-                    <tr>
-                        <td><?= $trainingPlan['name']; ?></td>
-                        <td><?= $trainingPlan['sessions']; ?></td>
-                        <td><?= $trainingPlan['price'] . "$"; ?></td>
-                        <td><?php
-                        $created_at = strtotime($trainingPlan['created_at']);
-                        $new_date = date("M d, Y", $created_at);
-                        echo $new_date;
-                        ?></td>
-                        <td>
-                            <form action="delete_training_plan.php" method="POST">
-                                <input type="hidden" name="plan_id" value="<?= $trainingPlan['plan_id']?>">
-                                <input type="submit" value="DELETE" class="btn btn-primary">
-                            </form>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                    <?php if(count($trainingPlans) == 0): ?>
+                        <tr>
+                            <td colspan="10">No items found</td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach($trainingPlans as $trainingPlan): ?>
+                        <tr>
+                            <td><?= $trainingPlan['name']; ?></td>
+                            <td><?= $trainingPlan['sessions']; ?></td>
+                            <td><?= $trainingPlan['price'] . "$"; ?></td>
+                            <td><?php
+                            $created_at = strtotime($trainingPlan['created_at']);
+                            $new_date = date("M d, Y", $created_at);
+                            echo $new_date;
+                            ?></td>
+                            <td>
+                                <form action="delete_training_plan.php" method="POST">
+                                    <input type="hidden" name="plan_id" value="<?= $trainingPlan['plan_id']?>">
+                                    <input type="submit" value="DELETE" class="btn btn-primary">
+                                </form>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif ?>
                 </tbody>
             </table>
         </div>
