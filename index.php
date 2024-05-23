@@ -40,13 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         header("Location: index.php");
         exit();
     }
-}
-
-if(isset($_SESSION['error']))
-{
-    echo $_SESSION['error'];
-    unset($_SESSION['error']);
-}
+  }
 
 ?>
 
@@ -73,9 +67,16 @@ if(isset($_SESSION['error']))
             <input type="password" class="form-control" id="password" name="password" placeholder="Password">
           </div>
           <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary" style="margin-bottom: 8px;">Login</button>
           </div>
         </form>
+        <?php 
+          if(isset($_SESSION['error']))
+          {
+              echo $_SESSION['error'];
+              unset($_SESSION['error']);
+          }
+        ?>
       </div>
     </div>
 </div>
